@@ -201,7 +201,7 @@ MonoBehaviour:
   rotationSpeed: 720
   maxTiltAngle: 55
   flipDuration: 0.15
-  squashAmount: 0.4
+  squashAmount: 1.1
   maxHP: 4
   floatSpeed: 1.2
   velocitySmoothing: 2
