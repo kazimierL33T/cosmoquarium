@@ -67,7 +67,10 @@ public class ShopController : MonoBehaviour
 
     public void Continue()
     {
-        LoadSceneIfAvailable(aquariumSceneName);
+        // Shop was loaded additively on top of Aquarium (which was paused, not unloaded),
+        // so returning just unloads Shop and resumes time - no scene reload needed.
+        Time.timeScale = 1f;
+        SceneManager.UnloadSceneAsync("Shop");
     }
 
     private void InitializeShop()

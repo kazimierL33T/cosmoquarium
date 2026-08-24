@@ -1,9 +1,11 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-// Lives once in each scene that needs upgrade data (Aquarium, Shop).
-// Maps each upgradeId to its prefab and icon, since GameManager (static)
-// can't hold serialized Inspector references directly.
+// Singleton that survives across scene loads. Only ONE instance is ever active -
+// if a second UpgradeDatabase loads (e.g. Shop's copy, loaded additively on top
+// of Aquarium), it detects the existing Instance and destroys itself instead of
+// overwriting it. This prevents Instance from ever pointing at a destroyed object
+// when an additively-loaded scene (like Shop) is later unloaded.
 public class UpgradeDatabase : MonoBehaviour
 {
     [System.Serializable]
@@ -32,7 +34,14 @@ public class UpgradeDatabase : MonoBehaviour
 
     void Awake()
     {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
         Instance = this;
+        DontDestroyOnLoad(gameObject);
     }
 
     public UpgradeEntry GetEntry(string upgradeId)

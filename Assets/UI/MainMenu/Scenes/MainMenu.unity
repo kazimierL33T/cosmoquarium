@@ -548,6 +548,10 @@ PrefabInstance:
       propertyPath: m_FontData.m_HorizontalOverflow
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1154266621097525558, guid: 825db31b04324fe49bd6a2af781cc3b2, type: 3}
+      propertyPath: gameSceneName
+      value: Aquarium
+      objectReference: {fileID: 0}
     - target: {fileID: 1591847982091752485, guid: 825db31b04324fe49bd6a2af781cc3b2, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 

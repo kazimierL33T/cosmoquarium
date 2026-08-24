@@ -191,7 +191,7 @@ MonoBehaviour:
   hasUpgrade: 0
   isGoldProducer: 0
   isUntargetable: 0
-  spawnValue: 10
+  spawnValue: 20
   clickDamageAmount: 1
   clickDamageHits: 1
   pulseSpeed: 4
