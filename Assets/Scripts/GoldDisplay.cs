@@ -1,11 +1,12 @@
 using UnityEngine;
-using TMPro; // TextMeshPro - Unity's standard modern UI text component
+using TMPro;
 
-// Attach to a TextMeshPro UI text object. Displays the player's current gold count,
-// pulling live from GameManager's static totalGold value.
+// Attach to a TextMeshPro UI text object. Displays the player's current
+// SPENDABLE gold (used in the shop) - separate from points, which track
+// progress toward the night's win requirement and never decrease.
 public class GoldDisplay : MonoBehaviour
 {
-    public string prefix = "Gold: $"; // text shown before the number, e.g. "Gold: 5"
+    public string prefix = "Gold: ";
 
     protected TextMeshProUGUI goldText;
 

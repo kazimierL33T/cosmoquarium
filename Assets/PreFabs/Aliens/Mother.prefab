@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 9181408942880535126}
   - component: {fileID: 6171068870955721029}
   - component: {fileID: 7628525023359801336}
-  - component: {fileID: 2632468583439005351}
   - component: {fileID: 2928123946502336012}
   - component: {fileID: 5672383496051325186}
   - component: {fileID: 5852690197481147612}
@@ -124,21 +123,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
   m_BlendShapeWeights: []
---- !u!114 &2632468583439005351
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3919899034901923848}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 95b5d407d46ab474388df33b08fb1a68, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ClickDamage
-  clickDamageAmount: 1
-  flashColor: {r: 1, g: 0, b: 0, a: 1}
-  flashDuration: 0.15
 --- !u!70 &2928123946502336012
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -189,6 +173,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Mother
   isPredator: 1
+  hasUpgrade: 0
+  isGoldProducer: 0
+  isUntargetable: 0
+  spawnValue: 35
+  clickDamageAmount: 1
+  clickDamageHits: 1
   pulseSpeed: 4
   pulseDuration: 0.5
   decelDuration: 0.5
@@ -224,6 +214,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95b5d407d46ab474388df33b08fb1a68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ClickDamage
-  clickDamageAmount: 1
   flashColor: {r: 1, g: 0, b: 0, a: 1}
   flashDuration: 0.15

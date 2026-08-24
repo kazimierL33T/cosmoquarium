@@ -1,9 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-// Inherits from Fish - reuses rotation/tilt/facing/HP systems,
-// but overrides movement entirely for floaty zigzag behavior instead of pulsing.
-// Used by Alien, Bug, and Burster GameObjects - each with isPredator checked true.
 public class Alien : Fish
 {
     [Header("Floaty Movement")]
@@ -58,7 +55,6 @@ public class Alien : Fish
         }
         else if (targetFish.isUntargetable)
         {
-            // Target became untargetable mid-chase (e.g. hid in a hideaway) - abandon immediately
             DevTools.LogTargetLost(gameObject, targetFish.name);
             targetFish = null;
             isTouchingTarget = false;
@@ -91,7 +87,6 @@ public class Alien : Fish
         rb.linearVelocity = Vector2.Lerp(rb.linearVelocity, desiredVelocity, velocitySmoothing * Time.fixedDeltaTime);
     }
 
-    // Finds every non-predator, non-untargetable Fish currently in the scene and picks one at random.
     protected virtual void AcquireRandomTarget()
     {
         string previousTargetName = targetFish != null ? targetFish.name : null;
@@ -103,7 +98,7 @@ public class Alien : Fish
         {
             if (fish == this) continue;
             if (fish.isPredator) continue;
-            if (fish.isUntargetable) continue; // skip fish protected by the Untargetable upgrade (or future hideaway)
+            if (fish.isUntargetable) continue;
             validTargets.Add(fish);
         }
 
@@ -237,6 +232,7 @@ public class Alien : Fish
             Vector3 spawnPosition = transform.position + (Vector3)randomOffset;
 
             Instantiate(bugPrefab, spawnPosition, Quaternion.identity);
+            GameManager.RegisterPredatorSpawn(); // bonus spawn counts toward the night's total too
         }
     }
 }

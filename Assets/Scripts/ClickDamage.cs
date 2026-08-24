@@ -27,7 +27,10 @@ public class ClickDamage : MonoBehaviour
     {
         if (targetFish != null)
         {
-            targetFish.DealClickDamageTo(targetFish);
+            // Predators get hit twice if the global Double Click buff is active from any living fish.
+            // Non-predators use their own normal clickDamageHits stat, unaffected by this buff.
+            int hits = (targetFish.isPredator && GameManager.IsDoubleClickActive) ? 2 : targetFish.clickDamageHits;
+            targetFish.TakeClickHits(hits, gameObject);
         }
 
         PlayFlashFeedback();

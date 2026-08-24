@@ -15,8 +15,8 @@ public class Fish : MonoBehaviour
     public float spawnValue = 10f;
 
     [Header("Click Damage")]
-    public int clickDamageAmount = 1;  // base damage dealt per hit - shared by clicking AND shooting
-    public int clickDamageHits = 1;    // number of damage instances per hit - doubled by Double Click upgrade
+    public int clickDamageAmount = 1;
+    public int clickDamageHits = 1;
 
     [Header("Pulse Movement")]
     public float pulseSpeed = 4f;
@@ -49,6 +49,8 @@ public class Fish : MonoBehaviour
     protected bool pendingFacingRight;
     protected float flipTimer;
     protected bool hasSwappedThisFlip;
+
+    protected bool isDoubleClickSource = false;
 
     protected virtual void Awake()
     {
@@ -243,6 +245,16 @@ public class Fish : MonoBehaviour
 
     protected virtual void Die()
     {
+        if (isPredator)
+        {
+            GameManager.RegisterPredatorDeath();
+        }
+
+        if (isDoubleClickSource)
+        {
+            GameManager.UnregisterDoubleClickSource();
+        }
+
         DevTools.LogDeath(gameObject);
         Destroy(gameObject);
     }
@@ -262,10 +274,6 @@ public class Fish : MonoBehaviour
         currentHP *= 2;
     }
 
-    // Deals this fish's own click-damage profile (amount x hits) to a target Fish.
-    // Used both when this fish is clicked, and when a shooting upgrade fires this
-    // fish's shots at a predator - same stats drive both, so Double Click and any
-    // future damage-boosting upgrades apply equally to clicking and shooting.
     public virtual void DealClickDamageTo(Fish target, GameObject attacker = null)
     {
         if (target == null) return;
@@ -273,6 +281,23 @@ public class Fish : MonoBehaviour
         for (int i = 0; i < clickDamageHits; i++)
         {
             target.TakeDamage(clickDamageAmount, attacker);
+        }
+    }
+
+    public virtual void ActivateDoubleClickSource()
+    {
+        if (!isDoubleClickSource)
+        {
+            isDoubleClickSource = true;
+            GameManager.RegisterDoubleClickSource();
+        }
+    }
+
+    public virtual void TakeClickHits(int hits, GameObject attacker = null)
+    {
+        for (int i = 0; i < hits; i++)
+        {
+            TakeDamage(clickDamageAmount, attacker);
         }
     }
 }

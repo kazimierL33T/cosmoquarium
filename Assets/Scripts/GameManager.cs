@@ -5,18 +5,26 @@ using System.Collections.Generic;
 public static class GameManager
 {
     public static int totalGold = 0;
+    public static int totalPoints = 0; // never decreases - tracks total gold ever collected, used for win/loss (spending gold doesn't affect this)
     public static int currentNight = 1;
 
-    // Tracks owned upgrades by ID -> count. Shop purchases call AddUpgrade,
-    // and Upgrade.cs calls RemoveUpgrade the moment a fish actually eats one.
     public static Dictionary<string, int> ownedUpgrades = new Dictionary<string, int>();
+
+    public static int doubleClickSourceCount = 0;
+
+    public static int totalPredatorsSpawned = 0;
+    public static int totalPredatorsKilled = 0;
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
     private static void Initialize()
     {
         totalGold = 0;
+        totalPoints = 0;
         currentNight = 1;
         ownedUpgrades.Clear();
+        doubleClickSourceCount = 0;
+        totalPredatorsSpawned = 0;
+        totalPredatorsKilled = 0;
 
         SceneManager.sceneUnloaded -= OnSceneUnloaded;
         SceneManager.sceneUnloaded += OnSceneUnloaded;
@@ -34,10 +42,10 @@ public static class GameManager
     public static void AddGold(int amount)
     {
         totalGold += amount;
-        Debug.Log($"[GameManager] Gold added: +{amount}. Total gold: {totalGold}");
+        totalPoints += amount; // points track total collected, unaffected by future spending
+        Debug.Log($"[GameManager] Gold added: +{amount}. Total gold: {totalGold}, Total points: {totalPoints}");
     }
 
-    // Called by the shop when the player purchases an upgrade
     public static void AddUpgrade(string upgradeId, int amount = 1)
     {
         if (ownedUpgrades.ContainsKey(upgradeId))
@@ -52,8 +60,6 @@ public static class GameManager
         Debug.Log($"[GameManager] Added upgrade '{upgradeId}'. Now own: {ownedUpgrades[upgradeId]}");
     }
 
-    // Called by Upgrade.cs when a fish successfully eats an upgrade instance.
-    // Returns true if removal succeeded (i.e. the player actually owned one).
     public static bool RemoveUpgrade(string upgradeId, int amount = 1)
     {
         if (ownedUpgrades.ContainsKey(upgradeId) && ownedUpgrades[upgradeId] >= amount)
@@ -71,5 +77,29 @@ public static class GameManager
 
         Debug.LogWarning($"[GameManager] Tried to remove upgrade '{upgradeId}' but it wasn't in inventory.");
         return false;
+    }
+
+    public static void RegisterDoubleClickSource()
+    {
+        doubleClickSourceCount++;
+        Debug.Log($"[GameManager] Double Click source registered. Active sources: {doubleClickSourceCount}");
+    }
+
+    public static void UnregisterDoubleClickSource()
+    {
+        doubleClickSourceCount = Mathf.Max(0, doubleClickSourceCount - 1);
+        Debug.Log($"[GameManager] Double Click source unregistered. Active sources: {doubleClickSourceCount}");
+    }
+
+    public static bool IsDoubleClickActive => doubleClickSourceCount > 0;
+
+    public static void RegisterPredatorSpawn()
+    {
+        totalPredatorsSpawned++;
+    }
+
+    public static void RegisterPredatorDeath()
+    {
+        totalPredatorsKilled++;
     }
 }

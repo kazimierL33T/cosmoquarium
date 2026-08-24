@@ -2,28 +2,41 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-// Lives once in the Aquarium scene. On Start, calculates this night's length and spawn
-// budget based on GameManager.currentNight, builds a queue of predators whose combined
-// spawnValue fills that budget (this queue is the single source of truth for the budget -
-// nothing else can add to it), then spawns them one at a time, evenly spaced across
-// the night's duration, each from a randomly chosen Spawner point in the scene.
 public class NightManager : MonoBehaviour
 {
+    public static NightManager Instance;
+
     [Header("Predator Prefabs")]
-    public List<GameObject> predatorPrefabs; // assign Alien, Bug, Mother, Burster prefabs here
+    public List<GameObject> predatorPrefabs;
 
     [Header("Night Length")]
     public float baseNightLength = 180f;
     public float nightLengthIncrease = 30f;
     public float maxNightLength = 300f;
 
+    [Header("Points Requirement - Nights 1-5")]
+    public int night1GoldRequirement = 500;
+    public int night2GoldRequirement = 650;
+    public int night3GoldRequirement = 850;
+    public int night4GoldRequirement = 1100;
+    public int night5GoldRequirement = 1450;
+    public float goldRequirementGrowthAfterNight5 = 1.3f;
+
+    [Header("Win/Lose UI")]
+    public WinLoseUI winLoseUI;
+
     protected float nightLength;
     protected float spawnBudget;
     protected List<GameObject> spawnQueue = new List<GameObject>();
     protected List<Spawner> activeSpawners = new List<Spawner>();
 
+    protected bool allPredatorsQueued = false;
+    protected bool nightEvaluated = false;
+
     protected virtual void Start()
     {
+        Instance = this;
+
         int night = GameManager.currentNight;
 
         nightLength = CalculateNightLength(night);
@@ -32,9 +45,18 @@ public class NightManager : MonoBehaviour
         FindSpawners();
         BuildSpawnQueue();
 
-        Debug.Log($"[NightManager] Night {night} - Length: {nightLength}s, Spawn Target: {spawnBudget}, Queued: {spawnQueue.Count} predators, Spawners found: {activeSpawners.Count}");
+        Debug.Log($"[NightManager] Night {night} - Length: {nightLength}s, Spawn Target: {spawnBudget}, Queued: {spawnQueue.Count} predators, Points Requirement: {CalculateGoldRequirement(night)}");
 
         StartCoroutine(SpawnOverTime());
+    }
+
+    protected virtual void Update()
+    {
+        if (allPredatorsQueued && !nightEvaluated && GameManager.totalPredatorsKilled >= GameManager.totalPredatorsSpawned)
+        {
+            nightEvaluated = true;
+            EvaluateWinLose();
+        }
     }
 
     protected virtual float CalculateNightLength(int night)
@@ -63,7 +85,32 @@ public class NightManager : MonoBehaviour
         return value;
     }
 
-    // Finds every active Spawner point currently in the scene
+    protected virtual int CalculateGoldRequirement(int night)
+    {
+        int[] earlyRequirements = { night1GoldRequirement, night2GoldRequirement, night3GoldRequirement, night4GoldRequirement, night5GoldRequirement };
+
+        if (night <= earlyRequirements.Length)
+        {
+            return earlyRequirements[night - 1];
+        }
+
+        float value = earlyRequirements[earlyRequirements.Length - 1];
+        int extraNights = night - earlyRequirements.Length;
+
+        for (int i = 0; i < extraNights; i++)
+        {
+            value *= goldRequirementGrowthAfterNight5;
+        }
+
+        return Mathf.RoundToInt(value);
+    }
+
+    // Public accessor so other scripts can get this night's points requirement
+    public virtual int GetGoldRequirement()
+    {
+        return CalculateGoldRequirement(GameManager.currentNight);
+    }
+
     protected virtual void FindSpawners()
     {
         activeSpawners.Clear();
@@ -76,9 +123,6 @@ public class NightManager : MonoBehaviour
         }
     }
 
-    // Builds the full night's predator queue ONCE, up front - this is what guarantees
-    // the total spawn budget is never exceeded, since nothing else can add to this list
-    // or independently decide to spawn something outside of it.
     protected virtual void BuildSpawnQueue()
     {
         spawnQueue.Clear();
@@ -106,12 +150,13 @@ public class NightManager : MonoBehaviour
         }
     }
 
-    // Spawns each queued predator one at a time, evenly spaced across the night's duration,
-    // each one instantiated at a randomly chosen Spawner's position
     protected virtual IEnumerator SpawnOverTime()
     {
         if (spawnQueue.Count == 0 || activeSpawners.Count == 0)
-            yield break; // nothing to spawn, or nowhere to spawn it from
+        {
+            allPredatorsQueued = true;
+            yield break;
+        }
 
         float interval = nightLength / spawnQueue.Count;
 
@@ -120,12 +165,34 @@ public class NightManager : MonoBehaviour
             SpawnPredator(prefab);
             yield return new WaitForSeconds(interval);
         }
+
+        allPredatorsQueued = true;
     }
 
-    // Instantiates a predator at a randomly chosen Spawner's position
     protected virtual void SpawnPredator(GameObject prefab)
     {
         Spawner chosenSpawner = activeSpawners[Random.Range(0, activeSpawners.Count)];
         Instantiate(prefab, chosenSpawner.transform.position, Quaternion.identity);
+        GameManager.RegisterPredatorSpawn();
+    }
+
+    // Win/loss now checks totalPoints (never decreases) instead of totalGold (spendable, can decrease in shop)
+    protected virtual void EvaluateWinLose()
+    {
+        int required = CalculateGoldRequirement(GameManager.currentNight);
+        bool success = GameManager.totalPoints >= required;
+
+        Debug.Log($"[NightManager] Night {GameManager.currentNight} complete. Points: {GameManager.totalPoints} / Required: {required} - {(success ? "WIN" : "GAME OVER")}");
+
+        if (winLoseUI == null) return;
+
+        if (success)
+        {
+            winLoseUI.ShowWin();
+        }
+        else
+        {
+            winLoseUI.ShowGameOver();
+        }
     }
 }
