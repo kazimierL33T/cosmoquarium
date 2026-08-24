@@ -39,6 +39,17 @@ public static class GameManager
         }
     }
 
+    public static bool TrySpendGold(int amount)
+{
+    if (amount <= 0 || totalGold < amount)
+    {
+        return false;
+    }
+
+    totalGold -= amount;
+    return true;
+}
+
     public static void AddGold(int amount)
     {
         totalGold += amount;

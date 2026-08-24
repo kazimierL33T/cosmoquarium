@@ -5,15 +5,21 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/Scenes/SampleScene.unity
-    guid: 8c9cfa26abfee488c85f1582747f6a02
   - enabled: 1
-    path: Assets/Scenes/Fishing.unity
-    guid: e41ac2c60c5422b449cec07e50a32a53
+    path: Assets/UI/MainMenu/Scenes/MainMenu.unity
+    guid: 7b0d865c424505b4da0ae4964b8059aa
+  - enabled: 1
+    path: Assets/UI/Shop/Scenes/Shop.unity
+    guid: 1fccec629539dda4697e42a8e021522e
   - enabled: 1
     path: Assets/Scenes/Aquarium.unity
     guid: b0dc62741c4df894a8e39f7e80aec42f
+  - enabled: 1
+    path: Assets/Scenes/Fishing.unity
+    guid: e41ac2c60c5422b449cec07e50a32a53
+  - enabled: 0
+    path: Assets/Scenes/SampleScene.unity
+    guid: 8c9cfa26abfee488c85f1582747f6a02
   m_configObjects:
     com.unity.dt.app-ui: {fileID: 11400000, guid: 1b1c20d82303e4b5781c3ef50ac1449f, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}

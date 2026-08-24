@@ -48,21 +48,53 @@ MonoBehaviour:
   - upgradeId: upgrade_template
     prefab: {fileID: 1689782870072375857, guid: 78c8a268d271f424bb5b6483ac562852, type: 3}
     icon: {fileID: 8450092904352276732, guid: ac71301369d24014a8ff11034b11c0c0, type: 3}
+    displayName: 
+    description: 
+    cost: 0
+    showInShop: 0
   - upgradeId: double_gold
     prefab: {fileID: 7551949319334633443, guid: 650239f233d772e41892e8fa6093a8d4, type: 3}
     icon: {fileID: 8450092904352276732, guid: ac71301369d24014a8ff11034b11c0c0, type: 3}
+    displayName: Double Gold
+    description: Doubles a GoldFish's gold multiplier, increasing the value of the
+      gold it produces.
+    cost: 12
+    showInShop: 1
   - upgradeId: untargetable
     prefab: {fileID: 6564087052076791557, guid: 0b2b1698aa10f2b4b91134b690b1d9f8, type: 3}
     icon: {fileID: 8450092904352276732, guid: ac71301369d24014a8ff11034b11c0c0, type: 3}
+    displayName: Untargetable
+    description: Prevents predators from selecting the upgraded fish as a hunt target.
+      It may still receive non-targeted damage.
+    cost: 8
+    showInShop: 1
   - upgradeId: double_fish
     prefab: {fileID: 5276747888921704307, guid: fa63163b300764a4093d148cbc262070, type: 3}
     icon: {fileID: 8450092904352276732, guid: ac71301369d24014a8ff11034b11c0c0, type: 3}
+    displayName: Double Fish
+    description: Creates a duplicate of the fish that receives it without permanently
+      occupying that fish's upgrade slot.
+    cost: 15
+    showInShop: 1
   - upgradeId: double_health
     prefab: {fileID: 427983286939229244, guid: 54b13a000cc335d4a9e1447ca1cb5af3, type: 3}
     icon: {fileID: 8450092904352276732, guid: ac71301369d24014a8ff11034b11c0c0, type: 3}
+    displayName: Double Health
+    description: Doubles a fish's maximum health, making it much harder to defeat.
+    cost: 5
+    showInShop: 1
   - upgradeId: double_click
     prefab: {fileID: 8749506642421637519, guid: 7d8bb2811880e554689534c4d193c283, type: 3}
     icon: {fileID: 8450092904352276732, guid: ac71301369d24014a8ff11034b11c0c0, type: 3}
+    displayName: Double Click
+    description: Doubles the number of damage hits produced when the upgraded fish
+      is clicked.
+    cost: 6
+    showInShop: 1
   - upgradeId: shooting_upgrade
     prefab: {fileID: 2592995573172249551, guid: 966794ddd9b1eb1419c05c3d608d8206, type: 3}
     icon: {fileID: 8450092904352276732, guid: ac71301369d24014a8ff11034b11c0c0, type: 3}
+    displayName: Shooting Upgrade
+    description: Gives a fish the ability to automatically fire at nearby predators.
+    cost: 10
+    showInShop: 1

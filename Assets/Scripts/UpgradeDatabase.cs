@@ -12,9 +12,21 @@ public class UpgradeDatabase : MonoBehaviour
         public string upgradeId;
         public GameObject prefab;
         public Sprite icon;
+
+        public string displayName;
+
+        [TextArea]
+        public string description;
+
+        [Min(0)]
+        public int cost;
+
+        public bool showInShop;
     }
 
     public List<UpgradeEntry> entries;
+
+    public IReadOnlyList<UpgradeEntry> Entries => entries;
 
     public static UpgradeDatabase Instance;
 
