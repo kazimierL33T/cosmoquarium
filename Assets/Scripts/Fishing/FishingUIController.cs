@@ -33,9 +33,11 @@ public class FishingUIController : MonoBehaviour
 
     [Header("Minigame")]
     public Slider minigameBar;
+    public RectTransform hitZoneImage;
 
     [Header("Catch Result")]
     public TMP_Text catchResultText;
+    public Image caughtFishImage;
 
     private void OnEnable()
     {
@@ -82,6 +84,7 @@ public class FishingUIController : MonoBehaviour
     private void Start()
     {
         catchResultText.gameObject.SetActive(false);
+        caughtFishImage.gameObject.SetActive(false);
 
         startFishingButton.onClick.AddListener(OnStartFishingClicked);
         baitQualityButton.onClick.AddListener(() => OnUpgradeButtonClicked(baitQualityUpgrade));
@@ -93,6 +96,29 @@ public class FishingUIController : MonoBehaviour
     {
         shopPanel.SetActive(true);
         RefreshShopButtons();
+        UpdateHitZoneVisual();
+    }
+
+    /// Sizes and positions the green hit zone image based on the minigame's current
+    /// hit zone width (which already factors in the Line Strength upgrade level).
+    /// Called once when the shop opens, since that's guaranteed to happen after
+    /// upgrades have been applied for this scene load.
+    private void UpdateHitZoneVisual()
+    {
+        if (hitZoneImage == null || minigameController == null) return;
+
+        float halfWidth = minigameController.GetCurrentHitZoneWidth() / 2f;
+        float center = minigameController.hitZoneCenter;
+
+        float min = Mathf.Clamp01(center - halfWidth);
+        float max = Mathf.Clamp01(center + halfWidth);
+
+        // Only touch the X anchors here - leave Y anchors/offsets exactly as configured
+        // in the Editor (e.g. copied from Background), so height stays untouched.
+        Vector2 anchorMin = hitZoneImage.anchorMin;
+        Vector2 anchorMax = hitZoneImage.anchorMax;
+        hitZoneImage.anchorMin = new Vector2(min, anchorMin.y);
+        hitZoneImage.anchorMax = new Vector2(max, anchorMax.y);
     }
 
     private void OnStartFishingClicked()
@@ -105,7 +131,14 @@ public class FishingUIController : MonoBehaviour
     {
         if (FishingUpgradeManager.Instance == null || upgrade == null) return;
 
-        FishingUpgradeManager.Instance.TryPurchase(upgrade);
+        bool purchased = FishingUpgradeManager.Instance.TryPurchase(upgrade);
+
+        if (purchased)
+        {
+            fishingManager.ApplyPurchasedUpgrades();
+            UpdateHitZoneVisual();
+        }
+
         RefreshShopButtons();
     }
 
@@ -154,10 +187,23 @@ public class FishingUIController : MonoBehaviour
         if (fish == null)
         {
             catchResultText.text = "No catch this time...";
+            caughtFishImage.gameObject.SetActive(false);
         }
         else
         {
             catchResultText.text = $"You caught a {fish.speciesName}!";
+
+            if (fish.sprite != null)
+            {
+                caughtFishImage.sprite = fish.sprite;
+                caughtFishImage.gameObject.SetActive(true);
+            }
+            else
+            {
+                // No sprite assigned on this FishData yet - skip showing the image
+                // rather than showing a blank/broken one.
+                caughtFishImage.gameObject.SetActive(false);
+            }
         }
 
         catchResultText.gameObject.SetActive(true);
@@ -167,5 +213,6 @@ public class FishingUIController : MonoBehaviour
     private void HideCatchResult()
     {
         catchResultText.gameObject.SetActive(false);
+        caughtFishImage.gameObject.SetActive(false);
     }
 }

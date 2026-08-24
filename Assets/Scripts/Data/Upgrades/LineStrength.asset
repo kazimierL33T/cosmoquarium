@@ -18,4 +18,4 @@ MonoBehaviour:
   effectPerLevel: 0.03
   baseCost: 5
   growthRate: 1.5
-  maxLevel: 3
+  maxLevel: 5

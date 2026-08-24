@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4017639088380625236}
   - component: {fileID: 5411337166700814865}
   - component: {fileID: 3946258215833122589}
+  - component: {fileID: -2951947133321042320}
   m_Layer: 0
   m_Name: GoldFish
   m_TagString: Untagged
@@ -30,7 +31,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 2.567356, y: -1.5396404, z: 0}
-  m_LocalScale: {x: 0.08, y: 0.08, z: 1}
+  m_LocalScale: {x: 0.1, y: 0.1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -148,12 +149,12 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -1932957671683340468, guid: 631cd4f2778b115498114b6e3787d777, type: 3}
+  m_Sprite: {fileID: -8256330342996790266, guid: 420e14ae19602a4479feeea96d219775, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 3.02, y: 1.59}
+  m_Size: {x: 9.14, y: 6.9}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -174,7 +175,10 @@ MonoBehaviour:
   isPredator: 0
   hasUpgrade: 0
   isGoldProducer: 1
+  isUntargetable: 0
   spawnValue: 10
+  clickDamageAmount: 1
+  clickDamageHits: 1
   pulseSpeed: 3
   pulseDuration: 0.7
   decelDuration: 0.7
@@ -186,3 +190,26 @@ MonoBehaviour:
   maxHP: 2
   goldPrefab: {fileID: 7225533569177117431, guid: 85d5ee675d3d638458ba926412d2aede, type: 3}
   dropInterval: 4
+  goldMultiplier: 1
+--- !u!95 &-2951947133321042320
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4197966729967908711}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 9c826b401cf3f1c46891022102f943b5, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

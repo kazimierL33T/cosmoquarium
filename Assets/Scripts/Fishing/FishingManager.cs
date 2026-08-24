@@ -4,8 +4,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+/// <summary>
 /// Drives the Fishing scene's core loop: Shop -> (Cast -> Delay -> Minigame -> Resolve) x5 -> Aquarium.
 /// This is the central state machine other Fishing scripts (UI, minigame, upgrades) will hook into.
+/// </summary>
 public class FishingManager : MonoBehaviour
 {
     private enum FishingState
@@ -38,6 +40,8 @@ public class FishingManager : MonoBehaviour
     [Tooltip("How long the catch result stays visible before the next cast can begin.")]
     public float catchResultDisplayDuration = 1.5f;
 
+    private float baseDelayDuration;
+
     // Fired whenever castsRemaining changes, including the initial value at Start().
     public event Action<int> OnCastsRemainingChanged;
     // Fired the moment a fish is caught, passing which species.
@@ -52,25 +56,31 @@ public class FishingManager : MonoBehaviour
 
     private void Start()
     {
+        baseDelayDuration = delayDuration;
         ApplyPurchasedUpgrades();
         castsRemaining = MaxCasts;
         OnCastsRemainingChanged?.Invoke(castsRemaining);
         ChangeState(FishingState.Shop);
     }
 
-    private void ApplyPurchasedUpgrades()
+    /// <summary>
+    /// Re-reads current upgrade levels and applies their effects. Safe to call multiple
+    /// times (e.g. right after a purchase in the shop, not just once at scene start) -
+    /// always recalculates from baseDelayDuration rather than mutating delayDuration
+    /// cumulatively, so repeated calls at the same level don't stack incorrectly.
+    /// </summary>
+    public void ApplyPurchasedUpgrades()
     {
         if (FishingUpgradeManager.Instance == null) return;
 
         foreach (FishingUpgradeData upgrade in FishingUpgradeManager.Instance.upgrades)
         {
             int level = FishingUpgradeManager.Instance.GetLevel(upgrade);
-            if (level <= 0) continue;
 
             switch (upgrade.upgradeType)
             {
                 case FishingUpgradeType.CastRange:
-                    delayDuration = Mathf.Max(0.1f, delayDuration - (upgrade.effectPerLevel * level));
+                    delayDuration = Mathf.Max(0.1f, baseDelayDuration - (upgrade.effectPerLevel * level));
                     break;
                 case FishingUpgradeType.LineStrength:
                     if (minigameController != null)
@@ -128,7 +138,9 @@ public class FishingManager : MonoBehaviour
         OnShopEntered?.Invoke();
     }
 
+    /// <summary>
     /// Called by the UI's "Start Fishing" button to close the shop and begin casting.
+    /// </summary>
     public void ConfirmShopAndStartFishing()
     {
         if (currentState == FishingState.Shop)
@@ -193,10 +205,11 @@ public class FishingManager : MonoBehaviour
         UnityEngine.SceneManagement.SceneManager.LoadScene(aquariumSceneName);
     }
 
-
+    /// <summary>
     /// Returns how strongly Bait Quality should nudge odds toward rarer fish on a normal
     /// (non-minigame-success) catch, as a 0-1 blend factor. Capped so it never fully
     /// guarantees rare fish outright - that's still reserved for succeeding the minigame.
+    /// </summary>
     private float GetBaitQualityBias()
     {
         if (FishingUpgradeManager.Instance == null) return 0f;
@@ -213,11 +226,13 @@ public class FishingManager : MonoBehaviour
         return 0f;
     }
 
+    /// <summary>
     /// Picks a random fish from the pool, weighted by each fish's catchWeight.
     /// Higher catchWeight = more likely to be selected under normal odds.
     /// If biasTowardRare is true (minigame succeeded), weighting is fully inverted so
     /// rarer fish (lower catchWeight) become more likely. Bait Quality upgrade levels
     /// also nudge odds toward rare fish even without a minigame success, by a smaller amount.
+    /// </summary>
     private FishData GetRandomWeightedFish(bool biasTowardRare)
     {
         if (fishPool == null || fishPool.Count == 0)

@@ -1,19 +1,13 @@
 fileFormatVersion: 2
-guid: 420e14ae19602a4479feeea96d219775
+guid: 0af5dfaa23cd7cb4e86e0a436b3ff438
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -8256330342996790266
-    second: goldie-sheet_0
+      213: 8200845249864224847
+    second: burster-sheet_0
   - first:
-      213: -382112132542584290
-    second: goldie-sheet_1
-  - first:
-      213: -2379303457253576130
-    second: goldie-sheet_2
-  - first:
-      213: 6038747762296533455
-    second: goldie-sheet_3
+      213: 202232358360579174
+    second: burster-sheet_1
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -122,13 +116,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: goldie-sheet_0
+      name: burster-sheet_0
       rect:
         serializedVersion: 2
-        x: 47
-        y: 175
-        width: 914
-        height: 690
+        x: 263
+        y: 11
+        width: 254
+        height: 746
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -137,20 +131,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 604b5650c4f9b6d80800000000000000
-      internalID: -8256330342996790266
+      spriteID: f405b180e414fc170800000000000000
+      internalID: 8200845249864224847
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: goldie-sheet_1
+      name: burster-sheet_1
       rect:
         serializedVersion: 2
-        x: 1199
-        y: 143
-        width: 786
-        height: 722
+        x: 995
+        y: 0
+        width: 326
+        height: 757
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -159,52 +153,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: e1aae6b3a0772baf0800000000000000
-      internalID: -382112132542584290
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: goldie-sheet_2
-      rect:
-        serializedVersion: 2
-        x: 2095
-        y: 175
-        width: 914
-        height: 690
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: e32ba899c140bfed0800000000000000
-      internalID: -2379303457253576130
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: goldie-sheet_3
-      rect:
-        serializedVersion: 2
-        x: 3247
-        y: 143
-        width: 786
-        height: 722
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: fc1bedb5811fdc350800000000000000
-      internalID: 6038747762296533455
+      spriteID: 66cfb2a22497ec200800000000000000
+      internalID: 202232358360579174
       vertices: []
       indices: 
       edges: []
@@ -223,10 +173,8 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      goldie-sheet_0: -8256330342996790266
-      goldie-sheet_1: -382112132542584290
-      goldie-sheet_2: -2379303457253576130
-      goldie-sheet_3: 6038747762296533455
+      burster-sheet_0: 8200845249864224847
+      burster-sheet_1: 202232358360579174
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

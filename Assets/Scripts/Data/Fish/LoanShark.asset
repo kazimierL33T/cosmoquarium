@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23bcbdbf561c9fd43bec0ab32bd8e369, type: 3}
   m_Name: LoanShark
   m_EditorClassIdentifier: Assembly-CSharp::FishData
-  speciesName: 
-  sprite: {fileID: 0}
-  abilityType: 0
-  abilityValue: 0
+  speciesName: Loan Shark
+  sprite: {fileID: -3385597838743006795, guid: bbcf9c01da825284da34f160496ad717, type: 3}
+  abilityType: 1
+  abilityValue: 5
   maxHP: 10
   catchWeight: 1
