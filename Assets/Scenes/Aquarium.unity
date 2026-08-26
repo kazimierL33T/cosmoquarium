@@ -924,6 +924,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GoldFish (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 4197966729967908711, guid: 58bd4bd7df853414eb45b30794686336, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5806323621307344930, guid: 58bd4bd7df853414eb45b30794686336, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.5699897
@@ -1496,6 +1500,10 @@ PrefabInstance:
     - target: {fileID: 4197966729967908711, guid: 58bd4bd7df853414eb45b30794686336, type: 3}
       propertyPath: m_Name
       value: GoldFish
+      objectReference: {fileID: 0}
+    - target: {fileID: 4197966729967908711, guid: 58bd4bd7df853414eb45b30794686336, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5806323621307344930, guid: 58bd4bd7df853414eb45b30794686336, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2096,6 +2104,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GoldFish (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 4197966729967908711, guid: 58bd4bd7df853414eb45b30794686336, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5806323621307344930, guid: 58bd4bd7df853414eb45b30794686336, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.8126242
@@ -2152,6 +2164,10 @@ PrefabInstance:
     - target: {fileID: 4197966729967908711, guid: 58bd4bd7df853414eb45b30794686336, type: 3}
       propertyPath: m_Name
       value: GoldFish (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4197966729967908711, guid: 58bd4bd7df853414eb45b30794686336, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5806323621307344930, guid: 58bd4bd7df853414eb45b30794686336, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2514,6 +2530,53 @@ Transform:
   - {fileID: 888663043}
   - {fileID: 123056786}
   - {fileID: 177849167}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1452264966
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1452264968}
+  - component: {fileID: 1452264967}
+  m_Layer: 0
+  m_Name: InventorySpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1452264967
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1452264966}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bfecf599c083604290c371f768b03a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AquariumInventorySpawner
+  goldFishPrefab: {fileID: 4197966729967908711, guid: 58bd4bd7df853414eb45b30794686336, type: 3}
+  standardFishPrefab: {fileID: 2675466926030849536, guid: 2ec58815679f9ae499815c2c31754024, type: 3}
+  spawnArea: {fileID: 1654074358}
+--- !u!4 &1452264968
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1452264966}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 698.6307, y: 420.55215, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1519989140
@@ -3015,6 +3078,84 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 5227790425460647128, guid: ae425e27f32534a4a813327285c93de6, type: 3}
   m_PrefabInstance: {fileID: 1305988264}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1654074357
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1654074359}
+  - component: {fileID: 1654074358}
+  m_Layer: 0
+  m_Name: FishSpawnArea
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!61 &1654074358
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1654074357}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 9, y: 5}
+  m_EdgeRadius: 0
+--- !u!4 &1654074359
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1654074357}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1762471314
 GameObject:
   m_ObjectHideFlags: 0
@@ -3658,8 +3799,10 @@ SceneRoots:
   - {fileID: 283821169}
   - {fileID: 1230583425}
   - {fileID: 1214809443}
+  - {fileID: 768418264}
   - {fileID: 1951861537}
   - {fileID: 1263282461}
   - {fileID: 1547742080571127228}
-  - {fileID: 768418264}
   - {fileID: 1967627004}
+  - {fileID: 1452264968}
+  - {fileID: 1654074359}
